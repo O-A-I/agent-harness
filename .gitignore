@@ -1,0 +1,15 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.turbo/
+coverage/
+.env
+.env.local
+*.db
+*.sqlite
+__pycache__/
+*.pyc
+.ruff_cache/
+.venv/
+.mypy_cache/
+*.egg-info/

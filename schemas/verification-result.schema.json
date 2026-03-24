@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VerificationResult",
+  "type": "object",
+  "required": ["workflowId", "passed", "checks", "timestamp"],
+  "properties": {
+    "workflowId": { "type": "string" },
+    "passed": { "type": "boolean" },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "name", "passed", "durationMs"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["compile", "typecheck", "test", "lint", "diff-scope", "custom"]
+          },
+          "name": { "type": "string" },
+          "passed": { "type": "boolean" },
+          "output": { "type": "string" },
+          "durationMs": { "type": "number" }
+        }
+      }
+    },
+    "timestamp": { "type": "string", "format": "date-time" }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "@agent-harness/vscode-extension",
+  "version": "0.1.0",
+  "private": true,
+  "description": "VS Code extension host for Agent Harness",
+  "main": "dist/extension.js",
+  "scripts": {
+    "build": "tsc -b",
+    "test": "vitest run",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist *.tsbuildinfo"
+  },
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "dependencies": {
+    "@agent-harness/core": "workspace:*",
+    "@agent-harness/mcp-client": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.96.0",
+    "vitest": "^3.0.0"
+  }
+}

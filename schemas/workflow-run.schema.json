@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WorkflowRun",
+  "type": "object",
+  "required": ["id", "taskId", "phase", "transitions", "createdAt", "updatedAt"],
+  "properties": {
+    "id": { "type": "string" },
+    "taskId": { "type": "string" },
+    "phase": {
+      "type": "string",
+      "enum": ["Created", "Planning", "Planned", "Executing", "Executed", "Verifying", "Verified", "Done", "Failed"]
+    },
+    "agentId": { "type": "string" },
+    "routingDecision": { "$ref": "routing-decision.schema.json" },
+    "plan": {
+      "type": "object",
+      "properties": {
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "description", "status"],
+            "properties": {
+              "id": { "type": "string" },
+              "description": { "type": "string" },
+              "tool": { "type": "string" },
+              "args": { "type": "object" },
+              "status": {
+                "type": "string",
+                "enum": ["pending", "running", "done", "failed", "skipped"]
+              }
+            }
+          }
+        },
+        "reasoning": { "type": "string" },
+        "estimatedFiles": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "verificationResult": { "$ref": "verification-result.schema.json" },
+    "transitions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["from", "to", "timestamp"],
+        "properties": {
+          "from": { "type": "string" },
+          "to": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "reason": { "type": "string" }
+        }
+      }
+    },
+    "error": { "type": "string" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" }
+  }
+}

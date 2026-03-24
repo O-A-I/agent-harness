@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "HarnessConfig",
+  "description": "Repository-scoped configuration for Agent Harness",
+  "type": "object",
+  "properties": {
+    "version": { "type": "string", "const": "1" },
+    "agents": {
+      "type": "object",
+      "properties": {
+        "allowed": { "type": "array", "items": { "type": "string" } },
+        "blocked": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "properties": {
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["compile", "typecheck", "test", "lint", "diff-scope", "custom"]
+          }
+        },
+        "customCommands": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "command"],
+            "properties": {
+              "name": { "type": "string" },
+              "command": { "type": "string" },
+              "timeout": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "properties": {
+        "maxFileChanges": { "type": "number", "default": 20 },
+        "forbiddenPaths": { "type": "array", "items": { "type": "string" } },
+        "timeoutMs": { "type": "number", "default": 300000 }
+      }
+    },
+    "routing": {
+      "type": "object",
+      "properties": {
+        "overrides": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["taskType", "agentId"],
+            "properties": {
+              "taskType": { "type": "string" },
+              "agentId": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

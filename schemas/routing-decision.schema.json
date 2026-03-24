@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RoutingDecision",
+  "type": "object",
+  "required": ["taskId", "selectedAgentId", "scores", "confidence", "fallbackChain", "timestamp"],
+  "properties": {
+    "taskId": { "type": "string" },
+    "selectedAgentId": { "type": "string" },
+    "scores": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["agentId", "score", "reasoning", "matchedCriteria"],
+        "properties": {
+          "agentId": { "type": "string" },
+          "score": { "type": "number", "minimum": 0, "maximum": 1 },
+          "reasoning": { "type": "string" },
+          "matchedCriteria": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "fallbackChain": { "type": "array", "items": { "type": "string" } },
+    "timestamp": { "type": "string", "format": "date-time" }
+  }
+}
