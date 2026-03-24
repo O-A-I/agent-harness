@@ -1,2 +1,2 @@
-export {};
-// MCP Server — to be implemented in Phase 2
+export { HarnessMCPServer } from "./harness-server.js";
+export type { HarnessServerDeps } from "./harness-server.js";
