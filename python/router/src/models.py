@@ -31,9 +31,14 @@ class Task(BaseModel):
     created_at: datetime = Field(default_factory=datetime.now)
 
 
+class LanguageInfo(BaseModel):
+    name: str
+    percentage: float
+
+
 class RepoProfile(BaseModel):
     path: str
-    languages: list[dict[str, float]]
+    languages: list[LanguageInfo]
     frameworks: list[str]
     build_system: str | None = None
     test_framework: str | None = None
