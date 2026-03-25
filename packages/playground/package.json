@@ -1,0 +1,14 @@
+{
+  "name": "@agent-harness/playground",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "demo": "tsx demo.ts"
+  },
+  "dependencies": {
+    "@agent-harness/core": "workspace:*",
+    "@agent-harness/mcp": "workspace:*",
+    "@agent-harness/router": "workspace:*"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "agent-harness",
+  "version": "0.0.1",
+  "private": true,
+  "description": "A deterministic orchestration shell for LLM-powered engineering agents",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/agent-harness.git"
+  },
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  },
+  "packageManager": "pnpm@9.15.4",
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "test:watch": "turbo run test:watch",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"packages/**/*.ts\"",
+    "format:check": "prettier --check \"packages/**/*.ts\"",
+    "typecheck": "turbo run typecheck",
+    "clean": "turbo run clean",
+    "demo": "pnpm --filter @agent-harness/playground demo"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.2",
+    "@typescript-eslint/parser": "^8.57.2",
+    "eslint": "^10.1.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.1",
+    "tsx": "^4.21.0",
+    "turbo": "^2.8.20",
+    "typescript": "^5.7.3",
+    "vitest": "^4.1.1"
+  }
+}

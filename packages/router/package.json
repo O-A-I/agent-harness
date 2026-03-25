@@ -1,0 +1,28 @@
+{
+  "name": "@agent-harness/router",
+  "version": "0.0.1",
+  "description": "Task router — analyzes repos, scores agent capabilities, routes tasks to the right agent",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -b",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist .turbo"
+  },
+  "dependencies": {
+    "@agent-harness/core": "workspace:*",
+    "@agent-harness/mcp": "workspace:*"
+  },
+  "license": "Apache-2.0"
+}
