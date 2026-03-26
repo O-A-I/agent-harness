@@ -1,4 +1,10 @@
-import { WorkflowStateMachine, taskId, agentId, WorkflowPhase, InMemoryWorkflowStore } from '@agent-harness/core';
+import {
+  WorkflowStateMachine,
+  taskId,
+  agentId,
+  WorkflowPhase,
+  InMemoryWorkflowStore,
+} from '@agent-harness/core';
 import type { Task, AgentCapability } from '@agent-harness/core';
 import { routeTask } from '@agent-harness/router';
 import { ToolRegistry, HarnessToolHandler } from '@agent-harness/mcp';
@@ -58,7 +64,8 @@ console.log(`   Tools indexed: ${registry.getAllEntries().length}\n`);
 const task: Task = {
   id: taskId('task-001'),
   title: 'Fix login button crash on Safari',
-  description: 'Users report the login button throws a TypeError on Safari 17. The onClick handler references a null ref.',
+  description:
+    'Users report the login button throws a TypeError on Safari 17. The onClick handler references a null ref.',
   source: { type: 'manual', createdBy: 'demo' },
   repoContext: {
     rootPath: process.cwd(),
@@ -77,7 +84,9 @@ console.log('🔍 Analyzing repo and routing task...\n');
 const routerResult = await routeTask(task, agents);
 
 console.log('📊 Repo Profile:');
-console.log(`   Languages: ${routerResult.repoProfile.languages.map(l => `${l.name} (${l.percentage}%)`).join(', ')}`);
+console.log(
+  `   Languages: ${routerResult.repoProfile.languages.map((l) => `${l.name} (${l.percentage}%)`).join(', ')}`,
+);
 console.log(`   Frameworks: ${routerResult.repoProfile.frameworks.join(', ') || 'none detected'}`);
 console.log(`   Build: ${routerResult.repoProfile.buildSystem ?? 'unknown'}`);
 console.log(`   Tests: ${routerResult.repoProfile.testFramework ?? 'unknown'}`);
@@ -87,7 +96,9 @@ console.log('📈 Agent Scores:');
 for (const score of routerResult.scores) {
   const bar = '█'.repeat(Math.round(score.score * 20)).padEnd(20, '░');
   console.log(`   ${bar} ${(score.score * 100).toFixed(0)}% — ${score.agentId}`);
-  console.log(`      lang=${score.breakdown.languageMatch} fw=${score.breakdown.frameworkMatch} task=${score.breakdown.taskTypeMatch} tools=${score.breakdown.toolAvailability}`);
+  console.log(
+    `      lang=${score.breakdown.languageMatch} fw=${score.breakdown.frameworkMatch} task=${score.breakdown.taskTypeMatch} tools=${score.breakdown.toolAvailability}`,
+  );
 }
 
 console.log(`\n✅ Routing Decision:`);
@@ -103,7 +114,9 @@ console.log('🔄 Walking workflow state machine:\n');
 const machine = new WorkflowStateMachine(task.id);
 
 machine.onTransition((event) => {
-  console.log(`   ${event.fromPhase} → ${event.toPhase}${event.reason ? ` (${event.reason})` : ''}`);
+  console.log(
+    `   ${event.fromPhase} → ${event.toPhase}${event.reason ? ` (${event.reason})` : ''}`,
+  );
 });
 
 machine.transition(WorkflowPhase.Planning, 'Agent generating plan');
@@ -133,16 +146,23 @@ for (const event of machine.current.events) {
 
 const handler = new HarnessToolHandler(store);
 
-const workflows = await handler.handle('workflow/discover', { limit: 10 }) as unknown[];
+const workflows = (await handler.handle('workflow/discover', { limit: 10 })) as unknown[];
 console.log(`   workflow/discover → ${workflows.length} workflow(s) found`);
 
-const status = await handler.handle('workflow/status', { workflowId: machine.current.id }) as { phase: string } | null;
+const status = (await handler.handle('workflow/status', { workflowId: machine.current.id })) as {
+  phase: string;
+} | null;
 console.log(`   workflow/status → phase: ${status?.phase}`);
 
-const events = await handler.handle('workflow/events', { workflowId: machine.current.id }) as unknown[];
+const events = (await handler.handle('workflow/events', {
+  workflowId: machine.current.id,
+})) as unknown[];
 console.log(`   workflow/events → ${events.length} events`);
 
-const daily = await handler.handle('daily/summary', {}) as { totalTasks: number; completedTasks: number };
+const daily = (await handler.handle('daily/summary', {})) as {
+  totalTasks: number;
+  completedTasks: number;
+};
 console.log(`   daily/summary → ${daily.completedTasks}/${daily.totalTasks} tasks completed`);
 
 // ─── 6. Demo failure + retry ─────────────────────────────────
@@ -152,7 +172,9 @@ console.log('\n🔁 Demo: failure and retry flow:\n');
 const machine2 = new WorkflowStateMachine(taskId('task-002'));
 
 machine2.onTransition((event) => {
-  console.log(`   ${event.fromPhase} → ${event.toPhase}${event.reason ? ` (${event.reason})` : ''}`);
+  console.log(
+    `   ${event.fromPhase} → ${event.toPhase}${event.reason ? ` (${event.reason})` : ''}`,
+  );
 });
 
 machine2.transition(WorkflowPhase.Planning, 'Starting');

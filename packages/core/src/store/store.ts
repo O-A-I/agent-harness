@@ -1,4 +1,11 @@
-import type { Task, TaskId, Workflow, WorkflowId, WorkflowEvent, DailyProgress } from '../contracts/types.js';
+import type {
+  Task,
+  TaskId,
+  Workflow,
+  WorkflowId,
+  WorkflowEvent,
+  DailyProgress,
+} from '../contracts/types.js';
 
 /**
  * Abstract persistence interface for workflows and tasks.

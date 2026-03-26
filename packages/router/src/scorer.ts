@@ -20,10 +20,10 @@ export interface ScoreBreakdown {
 
 // Weights for each scoring dimension
 const WEIGHTS = {
-  language: 0.40,
+  language: 0.4,
   framework: 0.25,
   taskType: 0.25,
-  tools: 0.10,
+  tools: 0.1,
 } as const;
 
 export function scoreAgents(
@@ -31,9 +31,7 @@ export function scoreAgents(
   profile: RepoProfile,
   agents: readonly AgentCapability[],
 ): ScoredAgent[] {
-  return agents
-    .map((agent) => scoreAgent(task, profile, agent))
-    .sort((a, b) => b.score - a.score);
+  return agents.map((agent) => scoreAgent(task, profile, agent)).sort((a, b) => b.score - a.score);
 }
 
 function scoreAgent(task: Task, profile: RepoProfile, agent: AgentCapability): ScoredAgent {

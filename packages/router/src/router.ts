@@ -3,12 +3,7 @@
  * and returns a RoutingDecision with confidence + reasoning + fallback chain.
  */
 
-import type {
-  Task,
-  AgentCapability,
-  RoutingDecision,
-  RepoProfile,
-} from '@agent-harness/core';
+import type { Task, AgentCapability, RoutingDecision, RepoProfile } from '@agent-harness/core';
 import { analyzeRepo } from './analyzer.js';
 import { scoreAgents, type ScoredAgent } from './scorer.js';
 

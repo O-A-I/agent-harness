@@ -1,6 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import { scoreAgents } from '../src/index.js';
-import { taskId, agentId, type Task, type RepoProfile, type AgentCapability } from '@agent-harness/core';
+import {
+  taskId,
+  agentId,
+  type Task,
+  type RepoProfile,
+  type AgentCapability,
+} from '@agent-harness/core';
 
 describe('scorer', () => {
   const tsRepo: RepoProfile = {

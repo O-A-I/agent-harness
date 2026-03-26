@@ -1,13 +1,17 @@
 import { describe, it, expect } from 'vitest';
 import { routeTask } from '../src/index.js';
-import { taskId, agentId, type Task, type AgentCapability, type RepoProfile } from '@agent-harness/core';
+import {
+  taskId,
+  agentId,
+  type Task,
+  type AgentCapability,
+  type RepoProfile,
+} from '@agent-harness/core';
 
 describe('router', () => {
   const tsRepo: RepoProfile = {
     rootPath: '/repo',
-    languages: [
-      { name: 'typescript', percentage: 80, fileCount: 200 },
-    ],
+    languages: [{ name: 'typescript', percentage: 80, fileCount: 200 }],
     frameworks: ['react'],
     buildSystem: 'npm',
     testFramework: 'vitest',
@@ -72,9 +76,9 @@ describe('router', () => {
   });
 
   it('throws when no agents are provided', async () => {
-    await expect(
-      routeTask(task, [], { repoProfile: tsRepo }),
-    ).rejects.toThrow('No agents available');
+    await expect(routeTask(task, [], { repoProfile: tsRepo })).rejects.toThrow(
+      'No agents available',
+    );
   });
 
   it('includes reasoning in decision', async () => {

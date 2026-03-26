@@ -42,9 +42,7 @@ const VALID_TRANSITIONS: readonly PhaseTransition[] = [
   { from: WorkflowPhase.Verified, to: WorkflowPhase.Executing },
 ];
 
-const transitionSet = new Set(
-  VALID_TRANSITIONS.map((t) => `${t.from}→${t.to}`),
-);
+const transitionSet = new Set(VALID_TRANSITIONS.map((t) => `${t.from}→${t.to}`));
 
 export function isValidTransition(from: WorkflowPhase, to: WorkflowPhase): boolean {
   return transitionSet.has(`${from}→${to}`);
