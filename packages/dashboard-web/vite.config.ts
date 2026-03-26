@@ -6,4 +6,11 @@ export default defineConfig({
   build: {
     outDir: "dist",
   },
+  server: {
+    port: 3000,
+    proxy: {
+      "/api": "http://127.0.0.1:8321",
+      "/ws": { target: "ws://127.0.0.1:8321", ws: true },
+    },
+  },
 });

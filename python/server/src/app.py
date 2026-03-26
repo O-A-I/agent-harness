@@ -1,19 +1,49 @@
-"""FastAPI router for task routing — POST /route."""
+"""FastAPI application — task routing, verification, and dashboard API."""
 
 from __future__ import annotations
 
+import os
+from contextlib import asynccontextmanager
+from pathlib import Path
+from typing import AsyncGenerator
+
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from router.src.analyzer import analyze_repo
 from router.src.models import AgentCapability, RepoProfile, RoutingDecision, Task
 from router.src.scorer import route_task
+from server.src.dashboard_api import router as dashboard_router, ws_router, set_db
+from server.src.persistence import HarnessDB
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
+    db_path = os.environ.get("HARNESS_DB_PATH", str(Path.home() / ".harness" / "harness.db"))
+    Path(db_path).parent.mkdir(parents=True, exist_ok=True)
+    db = HarnessDB(db_path)
+    set_db(db)
+    yield
+    db.close()
+
 
 app = FastAPI(
     title="Agent Harness Backend",
     version="0.1.0",
-    description="Python backend — task routing, verification, and TS bridge",
+    description="Python backend — task routing, verification, dashboard API",
+    lifespan=lifespan,
 )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(dashboard_router)
+app.include_router(ws_router)
 
 
 @app.get("/health")
