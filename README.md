@@ -258,8 +258,10 @@ GitHub Actions runs on every push/PR:
 |--------|-------|----------|
 | Core state machine | 14 | All transitions, events, serialization |
 | Core workflow executor | 8 | Full lifecycle, failure, cancel, multi-workflow |
+| Core workflow E2E | 4 | Plan→Execute→Verify→Done, failure, concurrent, invalid transitions |
 | MCP client tool registry | 10 | Register, query, filter, bulk, clear |
-| MCP server | 6 | Construction, deps contract |
+| MCP server unit | 6 | Construction, deps contract |
+| MCP server integration | 6 | Full workflow data, transitions, progress |
 | Python repo analyzer | 7 | Language/framework/build/test/CI/pkg detection |
 | Python applicability scorer | 5 | Perfect match, mismatch, partial, generic |
 | Python task router | 5 | Best agent, fallback, no agents, single agent |
@@ -268,7 +270,8 @@ GitHub Actions runs on every push/PR:
 | Python persistence | 19 | CRUD, stats, progress, export/import roundtrip |
 | Python dashboard API | 11 | All endpoints, filter, roundtrip |
 | Python onboarding init | 7 | Config generation, init, force, edge cases |
-| **Total** | **110** | |
+| Python bridge integration | 5 | Full /route roundtrip, agent selection, /analyze, error cases |
+| **Total** | **125** | |
 
 ## License
 
