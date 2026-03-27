@@ -12,11 +12,10 @@ import argparse
 import sys
 from pathlib import Path
 
-from router.src.analyzer import analyze_repo
-from server.src.config import generate_default_config
-
 import yaml  # type: ignore[import-untyped]
 
+from router.src.analyzer import analyze_repo
+from server.src.config import generate_default_config
 
 BANNER = """
 ╔══════════════════════════════════════════╗
@@ -120,8 +119,11 @@ def main(argv: list[str] | None = None) -> int:
         # Show detected profile
         try:
             profile = analyze_repo(args.repo_path)
-            print(f"\n📊 Detected repo profile:")
-            print(f"   Languages:      {', '.join(l.name for l in profile.languages)}")
+            print("\n📊 Detected repo profile:")
+            print(
+                f"   Languages:      "
+                f"{', '.join(lang.name for lang in profile.languages)}"
+            )
             print(f"   Frameworks:     {', '.join(profile.frameworks) or 'none detected'}")
             print(f"   Build system:   {profile.build_system or 'none detected'}")
             print(f"   Test framework: {profile.test_framework or 'none detected'}")

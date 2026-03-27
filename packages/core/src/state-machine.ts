@@ -2,7 +2,6 @@ import type {
   WorkflowPhase,
   WorkflowTransition,
   WorkflowEvent,
-  WorkflowEventType,
   Id,
 } from "./types.js";
 

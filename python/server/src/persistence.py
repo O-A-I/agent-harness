@@ -8,19 +8,14 @@ from __future__ import annotations
 
 import json
 import sqlite3
-from contextlib import contextmanager
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Generator
+from typing import Any
 
 from router.src.models import (
     RoutingDecision,
-    RoutingScore,
-    VerificationCheck,
-    VerificationCheckType,
     VerificationResult,
 )
-
 
 DB_SCHEMA = """
 CREATE TABLE IF NOT EXISTS workflow_runs (
@@ -182,7 +177,8 @@ class HarnessDB:
     ) -> None:
         conn = self._get_conn()
         conn.execute(
-            """INSERT INTO workflow_transitions (workflow_id, from_phase, to_phase, reason, timestamp)
+            """INSERT INTO workflow_transitions
+               (workflow_id, from_phase, to_phase, reason, timestamp)
                VALUES (?, ?, ?, ?, ?)""",
             (workflow_id, from_phase, to_phase, reason, datetime.now().isoformat()),
         )
@@ -362,7 +358,8 @@ class HarnessDB:
         for wf in data.get("workflows", []):
             conn.execute(
                 """INSERT OR REPLACE INTO workflow_runs
-                   (id, task_id, phase, agent_id, plan_json, execution_result_json, error, created_at, updated_at)
+                   (id, task_id, phase, agent_id, plan_json,
+                    execution_result_json, error, created_at, updated_at)
                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
                 (wf["id"], wf["task_id"], wf["phase"], wf.get("agent_id"),
                  wf.get("plan_json"), wf.get("execution_result_json"),
@@ -372,19 +369,23 @@ class HarnessDB:
 
         for t in data.get("transitions", []):
             conn.execute(
-                """INSERT INTO workflow_transitions (workflow_id, from_phase, to_phase, reason, timestamp)
+                """INSERT INTO workflow_transitions
+                   (workflow_id, from_phase, to_phase, reason, timestamp)
                    VALUES (?, ?, ?, ?, ?)""",
-                (t["workflow_id"], t["from_phase"], t["to_phase"], t.get("reason"), t["timestamp"]),
+                (t["workflow_id"], t["from_phase"], t["to_phase"],
+                 t.get("reason"), t["timestamp"]),
             )
             count += 1
 
         for rd in data.get("routing_decisions", []):
             conn.execute(
                 """INSERT INTO routing_decisions
-                   (workflow_id, task_id, selected_agent_id, confidence, scores_json, fallback_chain_json, timestamp)
+                   (workflow_id, task_id, selected_agent_id, confidence,
+                    scores_json, fallback_chain_json, timestamp)
                    VALUES (?, ?, ?, ?, ?, ?, ?)""",
                 (rd["workflow_id"], rd["task_id"], rd["selected_agent_id"],
-                 rd["confidence"], rd["scores_json"], rd["fallback_chain_json"], rd["timestamp"]),
+                 rd["confidence"], rd["scores_json"],
+                 rd["fallback_chain_json"], rd["timestamp"]),
             )
             count += 1
 

@@ -266,12 +266,14 @@ GitHub Actions runs on every push/PR:
 | Python applicability scorer | 5 | Perfect match, mismatch, partial, generic |
 | Python task router | 5 | Best agent, fallback, no agents, single agent |
 | Python verification engine | 7 | Success, failure, timeout, custom commands |
+| Python diff-scope checker | 8 | Allowed/forbidden paths, max files, edge cases |
 | Python isolated execution | 11 | Worktree create/cleanup, patch, commit, apply |
 | Python persistence | 19 | CRUD, stats, progress, export/import roundtrip |
 | Python dashboard API | 11 | All endpoints, filter, roundtrip |
 | Python onboarding init | 7 | Config generation, init, force, edge cases |
 | Python bridge integration | 5 | Full /route roundtrip, agent selection, /analyze, error cases |
-| **Total** | **125** | |
+| Python config loader | 6 | Load/merge YAML, defaults, deep merge |
+| **Total** | **139** | |
 
 ## License
 

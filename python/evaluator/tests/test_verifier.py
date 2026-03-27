@@ -1,7 +1,5 @@
 """Tests for the verification engine."""
 
-import asyncio
-from unittest.mock import AsyncMock, patch
 
 import pytest
 

@@ -1,4 +1,6 @@
 import type { RoutingDecision, Task, AgentCapability, RepoProfile } from "@agent-harness/core";
+import * as path from "path";
+import * as fs from "fs";
 
 const DEFAULT_PORT = 8321;
 const HEALTH_CHECK_INTERVAL_MS = 10000;
@@ -168,13 +170,11 @@ export class PythonBridge {
   }
 
   private findPythonRoot(): string {
-    // Walk up from __dirname to find the python/ directory
-    const path = require("path");
     let dir = __dirname;
     for (let i = 0; i < 10; i++) {
       const candidate = path.join(dir, "python");
       try {
-        require("fs").statSync(candidate);
+        fs.statSync(candidate);
         return candidate;
       } catch {
         dir = path.dirname(dir);

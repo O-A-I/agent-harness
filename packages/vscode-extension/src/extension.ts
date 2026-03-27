@@ -93,7 +93,7 @@ async function createTask(): Promise<void> {
   const repo =
     vscode.workspace.workspaceFolders?.[0]?.uri.fsPath ?? "unknown";
 
-  const _task: Task = {
+  const task: Task = {
     id: `task-${Date.now()}`,
     title,
     description,
@@ -104,7 +104,7 @@ async function createTask(): Promise<void> {
 
   updateStatusBar("Planning");
   vscode.window.showInformationMessage(
-    `Harness: Task "${title}" created and routing...`
+    `Harness: Task "${task.title}" (${task.id}) created and routing...`
   );
 }
 

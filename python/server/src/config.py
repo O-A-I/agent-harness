@@ -2,12 +2,10 @@
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
 from typing import Any
 
 import yaml  # type: ignore[import-untyped]
-
 
 DEFAULT_CONFIG: dict[str, Any] = {
     "version": "1",

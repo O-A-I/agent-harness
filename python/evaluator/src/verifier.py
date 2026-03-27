@@ -9,7 +9,6 @@ from __future__ import annotations
 import asyncio
 import time
 from dataclasses import dataclass, field
-from pathlib import Path
 
 from router.src.models import VerificationCheck, VerificationCheckType, VerificationResult
 
@@ -74,7 +73,7 @@ async def _run_command(
         duration_ms = (time.monotonic() - start) * 1000
         output = stdout.decode(errors="replace")[-5000:]  # Cap output
         return proc.returncode == 0, output, duration_ms
-    except asyncio.TimeoutError:
+    except TimeoutError:
         duration_ms = (time.monotonic() - start) * 1000
         return False, f"Command timed out after {timeout}s", duration_ms
     except (FileNotFoundError, PermissionError):

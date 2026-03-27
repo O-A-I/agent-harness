@@ -2,6 +2,7 @@
   "name": "agent-harness-core",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "description": "Deterministic orchestration shell around probabilistic LLM agents",
   "scripts": {
     "build": "turbo run build",
@@ -11,11 +12,12 @@
     "clean": "turbo run clean"
   },
   "devDependencies": {
-    "turbo": "^2.4.0",
-    "typescript": "^5.7.0",
+    "@types/node": "^22.0.0",
     "eslint": "^9.0.0",
     "prettier": "^3.4.0",
-    "@types/node": "^22.0.0"
+    "turbo": "^2.4.0",
+    "typescript": "^5.7.0",
+    "typescript-eslint": "^8.57.2"
   },
   "packageManager": "pnpm@9.15.0",
   "engines": {

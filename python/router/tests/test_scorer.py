@@ -75,7 +75,10 @@ def generic_agent() -> AgentCapability:
         tools=["edit_file"],
         languages=[],
         frameworks=[],
-        task_types=[TaskType.BUG_FIX, TaskType.FEATURE, TaskType.REFACTOR, TaskType.TEST, TaskType.DOCS],
+        task_types=[
+            TaskType.BUG_FIX, TaskType.FEATURE, TaskType.REFACTOR,
+            TaskType.TEST, TaskType.DOCS,
+        ],
     )
 
 

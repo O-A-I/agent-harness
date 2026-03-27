@@ -44,7 +44,7 @@ def sample_repo(tmp_path: Path) -> Path:
 
 def test_analyze_detects_languages(sample_repo: Path) -> None:
     profile = analyze_repo(str(sample_repo))
-    lang_names = [l.name for l in profile.languages]
+    lang_names = [lang.name for lang in profile.languages]
     assert "typescript" in lang_names
     assert "python" in lang_names
 

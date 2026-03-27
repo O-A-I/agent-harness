@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import subprocess
-from pathlib import Path
 
 from router.src.models import VerificationCheck, VerificationCheckType
 
@@ -67,10 +66,13 @@ def check_diff_scope(
     duration = (time.monotonic() - start) * 1000
     passed = len(violations) == 0
 
+    scope_msg = f"{len(changed_files)} files changed, all in scope"
+    output = "\n".join(violations) if violations else scope_msg
+
     return VerificationCheck(
         type=VerificationCheckType.DIFF_SCOPE,
         name="diff-scope",
         passed=passed,
-        output="\n".join(violations) if violations else f"{len(changed_files)} files changed, all in scope",
+        output=output,
         duration_ms=round(duration, 1),
     )

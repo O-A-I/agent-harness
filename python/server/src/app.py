@@ -3,9 +3,9 @@
 from __future__ import annotations
 
 import os
+from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 from pathlib import Path
-from typing import AsyncGenerator
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -14,7 +14,8 @@ from pydantic import BaseModel
 from router.src.analyzer import analyze_repo
 from router.src.models import AgentCapability, RepoProfile, RoutingDecision, Task
 from router.src.scorer import route_task
-from server.src.dashboard_api import router as dashboard_router, ws_router, set_db
+from server.src.dashboard_api import router as dashboard_router
+from server.src.dashboard_api import set_db, ws_router
 from server.src.persistence import HarnessDB
 
 

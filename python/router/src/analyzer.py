@@ -8,7 +8,7 @@ from collections import Counter
 from datetime import datetime
 from pathlib import Path
 
-from .models import RepoProfile, LanguageInfo
+from .models import LanguageInfo, RepoProfile
 
 # File extension → language mapping
 EXTENSION_MAP: dict[str, str] = {

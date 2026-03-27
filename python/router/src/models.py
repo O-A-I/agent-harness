@@ -3,13 +3,13 @@
 from __future__ import annotations
 
 from datetime import datetime
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 
 from pydantic import BaseModel, Field
 
 
-class TaskType(str, Enum):
+class TaskType(StrEnum):
     BUG_FIX = "bug-fix"
     FEATURE = "feature"
     REFACTOR = "refactor"
@@ -76,7 +76,7 @@ class RoutingDecision(BaseModel):
     timestamp: datetime = Field(default_factory=datetime.now)
 
 
-class VerificationCheckType(str, Enum):
+class VerificationCheckType(StrEnum):
     COMPILE = "compile"
     TYPECHECK = "typecheck"
     TEST = "test"

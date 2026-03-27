@@ -1,5 +1,3 @@
-import type { Id, AgentCapability, TaskType } from "@agent-harness/core";
-
 /** Configuration for connecting to an MCP server */
 export interface MCPServerConfig {
   /** Unique name for this server connection */

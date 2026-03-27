@@ -1,0 +1,43 @@
+# Agent Harness — Sample Repository Configuration
+#
+# Place this file as `harness.config.yaml` in your repository root.
+# Run `python -m server.src.init .` to auto-generate a tailored version.
+
+version: "1"
+
+# Agent access control
+agents:
+  allowed: []        # Empty = allow all agents. List agent IDs to restrict.
+  blocked: []        # Block specific agents by ID.
+
+# Post-execution verification checks
+verification:
+  checks:
+    - compile        # Run the project build
+    - typecheck      # Static type analysis
+    - test           # Run the test suite
+    - lint           # Code style and quality
+    - diff-scope     # Ensure changes stay within allowed boundaries
+  customCommands:
+    # Add custom verification steps:
+    # - name: security-audit
+    #   command: npm audit --production
+    #   timeout: 60
+
+# Execution constraints
+execution:
+  maxFileChanges: 20          # Max files an agent can modify
+  forbiddenPaths:             # Files/dirs agents must not touch
+    - .github/
+    - .env
+    - pnpm-lock.yaml
+    - package-lock.json
+  timeoutMs: 300000           # 5 minute timeout
+  isolatedExecution: true     # Run agent actions in git worktrees
+
+# Routing overrides
+routing:
+  overrides: []
+  # Force specific agents for certain task types:
+  # - taskType: docs
+  #   agentId: docs-specialist
