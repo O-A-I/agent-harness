@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DailyProgress",
+  "description": "Aggregated daily engineering progress metrics",
+  "type": "object",
+  "required": ["date", "workflowsStarted", "workflowsCompleted", "workflowsFailed", "tasksRouted", "verificationsRun", "verificationPassRate", "topAgents"],
+  "properties": {
+    "date": { "type": "string", "format": "date" },
+    "workflowsStarted": { "type": "integer" },
+    "workflowsCompleted": { "type": "integer" },
+    "workflowsFailed": { "type": "integer" },
+    "tasksRouted": { "type": "integer" },
+    "verificationsRun": { "type": "integer" },
+    "verificationPassRate": { "type": "number", "minimum": 0, "maximum": 100 },
+    "topAgents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["agentId", "tasksHandled"],
+        "properties": {
+          "agentId": { "type": "string" },
+          "tasksHandled": { "type": "integer" }
+        }
+      }
+    }
+  }
+}

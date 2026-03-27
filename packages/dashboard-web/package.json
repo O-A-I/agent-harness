@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "description": "Standalone React/Vite dashboard for Agent Harness",
-  "main": "dist/index.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "preview": "vite preview",
     "test": "vitest run --passWithNoTests",
     "lint": "eslint src/",
     "typecheck": "tsc --noEmit",

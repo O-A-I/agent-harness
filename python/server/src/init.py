@@ -11,10 +11,12 @@ from __future__ import annotations
 import argparse
 import sys
 from pathlib import Path
+from typing import Any
 
 import yaml  # type: ignore[import-untyped]
 
 from router.src.analyzer import analyze_repo
+from router.src.models import RepoProfile
 from server.src.config import generate_default_config
 
 BANNER = """
@@ -24,14 +26,15 @@ BANNER = """
 """
 
 
-def generate_tailored_config(repo_path: str) -> dict:  # type: ignore[type-arg]
+def generate_tailored_config(repo_path: str) -> dict[str, Any]:
     """Generate a harness.config.yaml tailored to the detected repo profile."""
     try:
         profile = analyze_repo(repo_path)
     except ValueError:
-        return yaml.safe_load(generate_default_config(repo_path))
+        result: dict[str, Any] = yaml.safe_load(generate_default_config(repo_path))
+        return result
 
-    config: dict = {  # type: ignore[type-arg]
+    config: dict[str, Any] = {
         "version": "1",
         "agents": {"allowed": [], "blocked": []},
         "verification": {
@@ -54,7 +57,7 @@ def generate_tailored_config(repo_path: str) -> dict:  # type: ignore[type-arg]
     return config
 
 
-def _default_forbidden(profile) -> list:  # type: ignore[type-arg]
+def _default_forbidden(profile: RepoProfile) -> list[str]:
     """Generate sensible forbidden paths based on repo profile."""
     forbidden = [".github/", ".gitlab-ci.yml", "LICENSE", ".env"]
 

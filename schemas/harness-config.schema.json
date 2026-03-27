@@ -41,7 +41,8 @@
       "properties": {
         "maxFileChanges": { "type": "number", "default": 20 },
         "forbiddenPaths": { "type": "array", "items": { "type": "string" } },
-        "timeoutMs": { "type": "number", "default": 300000 }
+        "timeoutMs": { "type": "number", "default": 300000 },
+        "isolatedExecution": { "type": "boolean", "default": true, "description": "Run agent actions in isolated git worktrees" }
       }
     },
     "routing": {

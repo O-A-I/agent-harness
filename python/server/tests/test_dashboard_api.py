@@ -1,5 +1,7 @@
 """Tests for the dashboard API endpoints."""
 
+from collections.abc import AsyncGenerator
+
 import pytest
 from httpx import ASGITransport, AsyncClient
 
@@ -16,10 +18,10 @@ def db() -> HarnessDB:
 
 
 @pytest.fixture
-async def client(db: HarnessDB) -> AsyncClient:  # type: ignore[misc]
-    transport = ASGITransport(app=app)  # type: ignore[arg-type]
+async def client(db: HarnessDB) -> AsyncGenerator[AsyncClient, None]:
+    transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as c:
-        yield c  # type: ignore[misc]
+        yield c
 
 
 @pytest.mark.asyncio

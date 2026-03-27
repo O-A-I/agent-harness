@@ -36,6 +36,17 @@
         "estimatedFiles": { "type": "array", "items": { "type": "string" } }
       }
     },
+    "executionResult": {
+      "type": "object",
+      "properties": {
+        "stepsCompleted": { "type": "integer" },
+        "stepsTotal": { "type": "integer" },
+        "filesChanged": { "type": "array", "items": { "type": "string" } },
+        "output": { "type": "string" },
+        "durationMs": { "type": "number" }
+      },
+      "required": ["stepsCompleted", "stepsTotal", "filesChanged", "output", "durationMs"]
+    },
     "verificationResult": { "$ref": "verification-result.schema.json" },
     "transitions": {
       "type": "array",

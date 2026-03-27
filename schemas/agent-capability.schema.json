@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AgentCapability",
+  "description": "Describes an agent's capabilities, tools, and supported languages/frameworks",
+  "type": "object",
+  "required": ["id", "name", "description", "mcpServer", "tools", "languages", "frameworks", "taskTypes"],
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "mcpServer": { "type": "string" },
+    "tools": { "type": "array", "items": { "type": "string" } },
+    "languages": { "type": "array", "items": { "type": "string" } },
+    "frameworks": { "type": "array", "items": { "type": "string" } },
+    "taskTypes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["bug-fix", "feature", "refactor", "test", "docs", "review", "custom"]
+      }
+    },
+    "maxFileChanges": { "type": "integer" },
+    "supportsStreaming": { "type": "boolean" }
+  }
+}

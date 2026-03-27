@@ -2,13 +2,16 @@
 
 from __future__ import annotations
 
+import logging
 import os
+import traceback
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
 from router.src.analyzer import analyze_repo
@@ -18,10 +21,14 @@ from server.src.dashboard_api import router as dashboard_router
 from server.src.dashboard_api import set_db, ws_router
 from server.src.persistence import HarnessDB
 
+logger = logging.getLogger("agent-harness")
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
-    db_path = os.environ.get("HARNESS_DB_PATH", str(Path.home() / ".harness" / "harness.db"))
+    db_path = os.environ.get(
+        "HARNESS_DB_PATH", str(Path.home() / ".harness" / "harness.db")
+    )
     Path(db_path).parent.mkdir(parents=True, exist_ok=True)
     db = HarnessDB(db_path)
     set_db(db)
@@ -45,6 +52,17 @@ app.add_middleware(
 
 app.include_router(dashboard_router)
 app.include_router(ws_router)
+
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception) -> JSONResponse:
+    """Catch unhandled exceptions and return a structured JSON error."""
+    logger.error("Unhandled error on %s %s: %s", request.method, request.url.path, exc)
+    logger.debug(traceback.format_exc())
+    return JSONResponse(
+        status_code=500,
+        content={"detail": f"Internal server error: {type(exc).__name__}: {exc}"},
+    )
 
 
 @app.get("/health")
@@ -79,7 +97,10 @@ async def route(request: RouteRequest) -> RoutingDecision:
             detail="Either repo_path or repo_profile must be provided",
         )
 
-    return route_task(request.task, profile, request.agents)
+    try:
+        return route_task(request.task, profile, request.agents)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
 
 @app.post("/analyze", response_model=RepoProfile)

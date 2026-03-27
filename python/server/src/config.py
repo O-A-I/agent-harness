@@ -52,4 +52,5 @@ def _deep_merge(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any
 
 def generate_default_config(repo_path: str) -> str:
     """Generate a default harness.config.yaml as a string."""
-    return yaml.dump(DEFAULT_CONFIG, default_flow_style=False, sort_keys=False)
+    result: str = yaml.dump(DEFAULT_CONFIG, default_flow_style=False, sort_keys=False)
+    return result

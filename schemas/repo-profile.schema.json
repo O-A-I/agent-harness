@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RepoProfile",
+  "description": "Analysis result for a repository — languages, frameworks, build system, etc.",
+  "type": "object",
+  "required": ["path", "languages", "frameworks", "analyzedAt"],
+  "properties": {
+    "path": { "type": "string" },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "percentage"],
+        "properties": {
+          "name": { "type": "string" },
+          "percentage": { "type": "number", "minimum": 0, "maximum": 100 }
+        }
+      }
+    },
+    "frameworks": { "type": "array", "items": { "type": "string" } },
+    "buildSystem": { "type": "string" },
+    "testFramework": { "type": "string" },
+    "ciConfig": { "type": "string" },
+    "packageManager": { "type": "string" },
+    "analyzedAt": { "type": "string", "format": "date-time" }
+  }
+}

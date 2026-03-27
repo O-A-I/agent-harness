@@ -14,6 +14,7 @@ async def test_run_check_command_not_found() -> None:
         custom_command=["nonexistent_cmd_12345"],
     )
     assert not result.passed
+    assert result.output is not None
     assert "not found" in result.output.lower() or "Command not found" in result.output
 
 
@@ -24,6 +25,7 @@ async def test_run_check_success() -> None:
         custom_command=["echo", "hello"],
     )
     assert result.passed
+    assert result.output is not None
     assert "hello" in result.output
     assert result.duration_ms >= 0
 
@@ -45,6 +47,7 @@ async def test_run_check_timeout() -> None:
         timeout=0.1,
     )
     assert not result.passed
+    assert result.output is not None
     assert "timed out" in result.output.lower()
 
 

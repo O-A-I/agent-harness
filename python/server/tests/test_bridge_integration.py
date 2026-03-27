@@ -3,6 +3,7 @@
 Tests the full /route and /analyze endpoints as the TypeScript extension would call them.
 """
 
+from collections.abc import AsyncGenerator
 from datetime import datetime
 
 import pytest
@@ -21,10 +22,10 @@ def db() -> HarnessDB:
 
 
 @pytest.fixture
-async def client(db: HarnessDB) -> AsyncClient:  # type: ignore[misc]
-    transport = ASGITransport(app=app)  # type: ignore[arg-type]
+async def client(db: HarnessDB) -> AsyncGenerator[AsyncClient, None]:
+    transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as c:
-        yield c  # type: ignore[misc]
+        yield c
 
 
 @pytest.mark.asyncio
